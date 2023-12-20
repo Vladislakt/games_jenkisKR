@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'jacoco'
+    id 'maven-publish'
 }
 
 repositories {
@@ -30,6 +31,20 @@ test {
 jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
 }
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'org.gradle.sample'
+            artifactId = 'artefact'
+            version = '1.1'
+
+            from components.java
+        }
+    }
+}
+
+
 
 tasks.withType(Test) {
     systemProperty "file.encoding", "UTF-8"
